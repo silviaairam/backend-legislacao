@@ -1,4 +1,4 @@
-const Article = require("../models/Article");
+const Article = require("../../models/Article");
 const User = require("../models/User"); // Assuming you might need User model for createdBy or other admin tasks
 
 // Controller to create a new article (Admin only)
