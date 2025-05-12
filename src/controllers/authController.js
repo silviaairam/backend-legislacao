@@ -1,4 +1,4 @@
-const Article = require("../../models/Articles");
+const Article = require("../../models/Article");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
