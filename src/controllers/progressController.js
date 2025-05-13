@@ -1,11 +1,11 @@
 exports.getUserProgress = (req, res) => {
-  res.send("Retornando progresso do usuário...");
+  res.send("getUserProgress funcionando");
 };
 
 exports.getProgressByArticle = (req, res) => {
-  res.send("Retornando progresso por artigo...");
+  res.send("getProgressByArticle funcionando");
 };
 
 exports.saveUserProgress = (req, res) => {
-  res.send("Progresso salvo com sucesso.");
+  res.send("saveUserProgress funcionando");
 };
