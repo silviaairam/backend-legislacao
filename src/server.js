@@ -1,38 +1,42 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
-// Rotas
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/userRoutes');
-const premiumContentRoutes = require('./routes/premiumContentRoutes');
-const progressRoutes = require('./routes/progressRoutes');
-
-// Configura variáveis de ambiente
 dotenv.config();
 
-// Conecta ao MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('Conectado ao MongoDB'))
-.catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
+const authRoutes = require("./routes/auth");
+const adminRoutes = require("./routes/admin");
+const progressRoutes = require("./routes/progress.routes");
+const userRoutes = require("./routes/user");
+// Importe outras rotas se necessário, ex: premiumContentRoutes
 
-// Inicializa o app
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Usa as rotas
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/content', premiumContentRoutes);
-app.use('/api/progress', progressRoutes);
+// Rotas principais
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/progress", progressRoutes);
+app.use("/api/users", userRoutes);
+// app.use("/api/premium", premiumContentRoutes); // Se existir
 
-// Inicia o servidor
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log('Servidor rodando na porta ${PORT}');
+// Rota básica para teste
+app.get("/", (req, res) => {
+  res.send("API rodando!");
 });
+
+const PORT = process.env.PORT || 5000;
+
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Erro ao conectar ao MongoDB:", err);
+  });
