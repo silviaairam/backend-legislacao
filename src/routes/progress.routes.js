@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { authMiddleware } = require("../middleware/authMiddleware");
-const progressController = require("../controller/progressController");
+const progressController = require("../controllers/progressController");
 
 // Salvar ou atualizar progresso de um usuário em um artigo
 router.post("/save", authMiddleware, progressController.saveProgress);
